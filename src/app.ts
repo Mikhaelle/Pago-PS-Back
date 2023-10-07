@@ -6,7 +6,7 @@ import Database from "./config/db"
 const app = express();
 dotenv.config(); 
 const db = new Database();
-db.connectToDB();
+db.sequelize?.sync();
 
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.json({ status: 'UP' });
