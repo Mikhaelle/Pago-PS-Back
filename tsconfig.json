@@ -3,7 +3,13 @@
     "target": "es6",
     "moduleResolution": "node",
     "outDir": "./dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "strict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true 
+  
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

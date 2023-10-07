@@ -1,12 +1,16 @@
-import express from 'express';
+
+import express, { Request, Response } from "express";
+import dotenv from "dotenv";
+import connectToDB from "./config/db"
 
 const app = express();
-const port = 3000;
+dotenv.config(); 
+connectToDB();
 
-app.get('/healthcheck', (req, res) => {
+app.get("/healthcheck", (req: Request, res: Response) => {
   res.json({ status: 'UP' });
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running at ${process.env.PORT}`);
 });
