@@ -1,10 +1,18 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import BookRepository from "../repositories/BookRepository";
+import { validationResult } from "express-validator";
+import { BadRequestError } from "../errors/CustomErrors"
+
+interface BookDTO {
+    title: string;
+    author: string;
+    description: string;
+}
 
 class BookController {
-    private bookRepository = new BookRepository();
+    constructor(private readonly bookRepository: BookRepository) { }
 
-    public getAllBooks = async (req: Request, res: Response): Promise<void> => {
+    public getAllBooks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             const books = await this.bookRepository.getAllBooks();
             res.status(200).json({
@@ -13,62 +21,63 @@ class BookController {
                 data: books,
             });
         } catch (error) {
-            res.status(500).json({
-                status: "Internal Server Error!",
-                message: "Internal Server Error!",
-            });
+            next(error);
         }
     }
 
-    public createBook = async (req: Request, res: Response): Promise<void> => {
+
+    public createBook = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const { title, author, description } = req.body;
+            const { title, author, description } = req.body as BookDTO;
+
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                throw new BadRequestError("Invalid Params");
+            }
+
             await this.bookRepository.createBook(title, author, description);
+
             res.status(201).json({
                 status: "Created!",
                 message: "Successfully created a new book!",
             });
         } catch (error) {
-            res.status(500).json({
-                status: "Internal Server Error!",
-                message: "Internal Server Error!",
-            });
+            next(error);
         }
     }
 
-    public updateBook = async (req: Request, res: Response): Promise<void> => {
+    public updateBook = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const { title, author, description } = req.body;
+            const { title, author, description } = req.body as BookDTO;
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                throw new BadRequestError("Invalid Params");
+            }
             await this.bookRepository.updateBook(title, author, description);
             res.status(200).json({
                 status: "Updated!",
                 message: "Successfully updated book!",
             });
         } catch (error) {
-            res.status(500).json({
-                status: "Internal Server Error!",
-                message: "Internal Server Error!",
-            });
+            next(error);
         }
     }
 
-    public deleteBook = async (req: Request, res: Response): Promise<void> => {
+    public deleteBook = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const { title } = req.query;
-            if (typeof title === 'string') {
-                await this.bookRepository.deleteBook(title);
-                res.status(200).json({
-                    status: "Deleted!",
-                    message: "Successfully deleted book!",
-                });
-            } else {
-                throw new Error('Invalid title parameter');
+            const id = req.params.id;
+
+            if (!id || isNaN(parseInt(id, 10))) {
+                throw new BadRequestError("Invalid Params");
             }
-        } catch (error) {
-            res.status(500).json({
-                status: "Internal Server Error!",
-                message: "Internal Server Error!",
+
+            await this.bookRepository.deleteBook(id);
+            res.status(200).json({
+                status: "Deleted!",
+                message: "Successfully deleted book!",
             });
+        } catch (error) {
+            next(error);
         }
     }
 }

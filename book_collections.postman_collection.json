@@ -9,8 +9,37 @@
 		{
 			"name": "Create new book",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Gabriela, Cravo e Canela\",\r\n    \"author\": \"Jorge Amado\",\r\n    \"description\": \"Publicado em 1958, este romance se passa na fictícia cidade de Ilhéus durante a década de 1920. Conta a história de Gabriela, uma mulher bela e de espírito livre, e Nacib, o dono do bar que se apaixona por ela. O livro explora temas como amor, mudança social e choques culturais.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/api/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"api",
+						"book"
+					]
+				}
 			},
 			"response": []
 		},
@@ -18,23 +47,72 @@
 			"name": "Get books",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/v1/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"api",
+						"books"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Delete book",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/v1/api/book/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"api",
+						"book",
+						"6"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Update book",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Dom Casmurro\",\r\n    \"author\": \"Machado de Assis\",\r\n    \"description\": \"Romance clássico publicado em 1899. É considerado uma das maiores obras da literatura brasileira. A história é narrada por Bento Santiago, um homem idoso que suspeita da infidelidade de sua esposa, Capitu. O romance explora temas como ciúme, memória e narração não confiável\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/api/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"api",
+						"book"
+					]
+				}
 			},
 			"response": []
 		}
