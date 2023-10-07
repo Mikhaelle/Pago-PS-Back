@@ -8,8 +8,9 @@
     "strict": true,
     "typeRoots": ["./node_modules/@types"],
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true 
-  
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

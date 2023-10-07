@@ -1,11 +1,12 @@
 
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import connectToDB from "./config/db"
+import Database from "./config/db"
 
 const app = express();
 dotenv.config(); 
-connectToDB();
+const db = new Database();
+db.connectToDB();
 
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.json({ status: 'UP' });

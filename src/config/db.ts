@@ -1,18 +1,29 @@
 import { Pool } from "pg";
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: parseInt(process.env.DB_PORT || "5432")
-});
+import dotenv from "dotenv";
 
-const connectToDB = async () => {
-  try {
-    await pool.connect();
-  } catch (err) {
-    console.log(err);
+dotenv.config(); 
+
+class Database {
+  private pool: Pool;
+
+  constructor() {
+    this.pool = new Pool({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
+      port: parseInt(process.env.DB_PORT || "5432")
+    });
   }
-};
 
-export default connectToDB;
+  public async connectToDB() {
+    try {
+      await this.pool.connect();
+      console.log("PostgreSQL Connection has been established successfully");
+    } catch (err) {
+      console.log("Unable to connect to the PostgreSQL database:", err);
+    }
+  }
+}
+
+export default Database;

@@ -12,10 +12,10 @@ services:
     - .:/usr/src/app
 
   db:
-    container_name: postgres
+    container_name: postgres_db
     image: postgres
     ports:
-      - '5433:${DB_PORT}'
+      - '5432:${DB_PORT}'
     volumes:
       - data:/data/db
     environment:
