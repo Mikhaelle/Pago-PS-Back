@@ -9,7 +9,6 @@ export class Book extends Model {
   public static BOOK_TITLE = "title" as string;
   public static BOOK_AUTHOR = "author" as string;
   public static BOOK_DESCRIPTION = "description" as string;
-  public static BOOK_AVAILABILITY = "availability" as string;
 
 
   @Column({
@@ -21,26 +20,21 @@ export class Book extends Model {
   id!: number;
 
   @Column({
-    type: DataType.STRING(100),
+    type: DataType.STRING(150),
     field: Book.BOOK_TITLE,
   })
   title!: string;
 
   @Column({
-    type: DataType.STRING(255),
+    type: DataType.STRING(100),
     field: Book.BOOK_AUTHOR,
   })
   author!: string;
 
   @Column({
-    type: DataType.STRING(255),
+    type: DataType.STRING(1000),
     field: Book.BOOK_DESCRIPTION,
   })
   description!: string;
 
-  @Column({
-    type: DataType.BOOLEAN,
-    field: Book.BOOK_AVAILABILITY,
-  })
-  availability!: boolean;
 }
