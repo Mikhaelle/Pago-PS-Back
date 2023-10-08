@@ -16,7 +16,9 @@ The backend of the application should be a Node.js application, using TypeScript
 
 Make sure that docker and docker compose are installed in the machine and run:
 
-``` docker-compose up -d ```
+``` 
+docker-compose up -d 
+```
 
 If everything is alright you should be able to access the app in:
 
@@ -46,9 +48,13 @@ or:
 }
 ```
 expected status code output:
+
 200 - Successfully created
+
 400 - Bad request
+
 409 - Conflict Error (Book already exist)
+
 500 - Internal server error
 
 - #### Get to http://localhost:3000/v1/api/books
@@ -78,7 +84,9 @@ expected output:
 }
 ```
 expected status code output:
+
 200 - Successfully got books
+
 500 - Internal server error
 
 - #### Put to http://localhost:3000/v1/api/book
@@ -92,15 +100,31 @@ with body:
 }
 ```
 expected status code output:
+
 200 - Successfully updated
+
 400 - Bad request
+
 404 - Not found error
+
 500 - Internal server error
 
 
 - #### Delete by id to http://localhost:3000/v1/api/book/:id
 expected status code output:
+
 200 - Successfully deleted
+
 400 - Bad request
+
 404 - Not found error
+
 500 - Internal server error
+
+
+#### Run tests:
+
+To run tests execute
+```
+npm run test
+```
